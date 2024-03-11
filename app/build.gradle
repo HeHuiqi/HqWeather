@@ -16,6 +16,9 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    buildFeatures {
+        viewBinding true
+    }
 
     buildTypes {
         release {
@@ -41,4 +44,18 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+
+    // https://github.com/square/retrofit
+    // https://square.github.io/retrofit/
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    //配置json转模型
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    //网络图片加载库 https://github.com/bumptech/glide
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    //下拉刷新 https://developer.android.com/jetpack/androidx/releases/swiperefreshlayout?hl=zh-cn
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
 }
