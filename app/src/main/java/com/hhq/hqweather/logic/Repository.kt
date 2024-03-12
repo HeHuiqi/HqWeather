@@ -48,7 +48,7 @@ object Repository {
 
     fun refreshWeather(lng:String,lat:String) = fire(Dispatchers.IO) {
             coroutineScope {
-                // 由于 async函数必须在协程作用域内才能调用，所以这里又使用coroutineScope函数创建了一个 协程作用域
+                // 由于 async函数必须在协程作用域内才能调用，所以这里又使用coroutineScope函数创建了一个协程作用域
                 val deferredRealtime = async {
                     HqWeatherNetwork.getRealtimeWeather(lng,lat)
                 }

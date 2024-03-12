@@ -54,9 +54,11 @@ class PlaceFragment:Fragment() {
         rootBinding.recyclerView.layoutManager = layoutManager
         adapter = PlaceAdapter(this,viewModel.placeList)
         rootBinding.recyclerView.adapter = adapter
+        //设置输入框编辑事件
         rootBinding.searchPlaceEdit.addTextChangedListener { editable ->
             val content = editable.toString()
             if (content.isNotEmpty()) {
+                //根据输入开始请求数据
                 viewModel.searchPlaces(content)
             } else {
                 rootBinding.recyclerView.visibility = View.GONE
@@ -64,7 +66,9 @@ class PlaceFragment:Fragment() {
             }
         }
 
+        //监听LiveData数据变化
         viewModel.placeLiveData.observe(viewLifecycleOwner, Observer { result ->
+            //有结果返回开始刷新UI或执行其他逻辑
             val places = result.getOrNull()
             if (places != null) {
                 rootBinding.recyclerView.visibility = View.VISIBLE
