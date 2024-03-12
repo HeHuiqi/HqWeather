@@ -1,7 +1,9 @@
 package com.hhq.hqweather.ui.place
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +13,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.hhq.hqweather.MainActivity
 import com.hhq.hqweather.R
 import com.hhq.hqweather.databinding.FragmentPlaceBinding
+import com.hhq.hqweather.ui.weather.WeatherActivity
 
 class PlaceFragment:Fragment() {
     val viewModel by lazy {
@@ -26,13 +30,26 @@ class PlaceFragment:Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 //        return inflater.inflate(R.layout.fragment_place,container,false)
         return rootBinding.root
     }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        if (activity is MainActivity && viewModel.isPlaceSaved()) {
+
+            val place = viewModel.getSavedPlace()
+            val intent = Intent(context, WeatherActivity::class.java).apply {
+                putExtra("location_lng", place.location.lng)
+                putExtra("location_lat", place.location.lat)
+                putExtra("place_name", place.name)
+            }
+            startActivity(intent)
+            activity?.finish()
+            return
+        }
+
         val layoutManager = LinearLayoutManager(activity)
         rootBinding.recyclerView.layoutManager = layoutManager
         adapter = PlaceAdapter(this,viewModel.placeList)
@@ -56,12 +73,17 @@ class PlaceFragment:Fragment() {
                 viewModel.placeList.addAll(places)
                 adapter.notifyDataSetChanged()
             } else {
-                Toast.makeText(activity,"查询不到地址",Toast.LENGTH_SHORT).show()
+                val toast = Toast.makeText(activity,"查询不到地址",Toast.LENGTH_SHORT)
+                toast.setGravity(Gravity.CENTER,0,0)
+                toast.show()
                 result.exceptionOrNull()?.printStackTrace()
             }
 
         })
 
+    }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
     }
 }

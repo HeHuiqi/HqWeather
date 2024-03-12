@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.weather.WeatherActivity"
+    android:id="@+id/drawerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/swipeRefresh">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            android:overScrollMode="never"
+            android:id="@+id/weatherScrollView"
+            android:visibility="invisible">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <include layout="@layout/now" android:id="@+id/nowLayout"/>
+                <include layout="@layout/forecast" android:id="@+id/forecastLayout" />
+                <include layout="@layout/life_index" android:id="@+id/lifeIndexLayout" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@color/colorPrimary">
+        <fragment
+            android:id="@+id/placeFragment"
+            android:name="com.hhq.hqweather.ui.place.PlaceFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="25dp"/>
+    </FrameLayout>
+
+
+</androidx.drawerlayout.widget.DrawerLayout>
