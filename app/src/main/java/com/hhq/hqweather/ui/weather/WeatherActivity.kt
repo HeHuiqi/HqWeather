@@ -31,7 +31,7 @@ class WeatherActivity : AppCompatActivity() {
     val viewModel by lazy {
         ViewModelProvider(this).get(WeatherViewModel::class.java)
     }
-    private val rootBinding:ActivityWeatherBinding by lazy {
+    public val rootBinding:ActivityWeatherBinding by lazy {
         ActivityWeatherBinding.inflate(layoutInflater)
     }
     private val nowBinding by lazy {
@@ -115,7 +115,7 @@ class WeatherActivity : AppCompatActivity() {
             refreshWeather()
         }
     }
-    private fun refreshWeather(){
+    fun refreshWeather(){
         viewModel.refreshWeather(viewModel.locationLng, viewModel.locationLat)
         rootBinding.swipeRefresh.isRefreshing = true
     }
@@ -124,7 +124,7 @@ class WeatherActivity : AppCompatActivity() {
         nowBinding.placeName.text = viewModel.placeName
         val realtime = weather.realtime
         val daily = weather.daily
-        // 填充now.xml布局中的数据
+        // 填充now.xml布局中的数据，当前城市天气数据
         val currentTempText = "${realtime.temperature.toInt()} °C"
         nowBinding.currentTemp.text = currentTempText
         nowBinding.currentSky.text = getSky(realtime.skycon).info
@@ -132,7 +132,7 @@ class WeatherActivity : AppCompatActivity() {
         nowBinding.currentAQI.text = currentPM25Text
         nowBinding.root.setBackgroundResource(getSky(realtime.skycon).bg)
 
-        // 填充forecast.xml布局中的数据
+        // 填充forecast.xml布局中的数据，未来几天的天气
         forecastBinding.forecastLayoutContent.removeAllViews()
         val days = daily.skycon.size
         for (i in 0 until days) {
@@ -154,7 +154,7 @@ class WeatherActivity : AppCompatActivity() {
             forecastBinding.forecastLayoutContent.addView(view)
         }
 
-        // 填充life_index.xml布局中的数据
+        // 填充life_index.xml布局中的数据，生活指数
         val lifeIndex = daily.lifeIndex
         lifeIndexBinding.coldRiskText.text = lifeIndex.coldRisk[0].desc
         lifeIndexBinding.dressingText.text = lifeIndex.dressing[0].desc

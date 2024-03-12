@@ -21,11 +21,13 @@
             android:textColor="?android:attr/textColorPrimary"
             android:textSize="20sp"
             android:text="预报"/>
+
+<!--     通过代码添加子视图   -->
         <LinearLayout
             android:id="@+id/forecastLayoutContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"></LinearLayout>
+            android:orientation="vertical" />
 
     </LinearLayout>
 
