@@ -8,7 +8,7 @@ class HqApplication:Application() {
     companion object {
         @SuppressLint("StaticFieldLeak")
         private lateinit var context: Context
-        private const val WEATHER_TOKEN = ""
+        const val WEATHER_TOKEN = "JPLK7gQJmQ1e7p0Y"
     }
     override fun onCreate() {
         super.onCreate()

@@ -16,8 +16,6 @@ class MainActivity : AppCompatActivity() {
         setup()
     }
     private fun setup() {
-        rootBinding.goBtn.setOnClickListener {
-            Toast.makeText(this,"hello",Toast.LENGTH_SHORT).show()
-        }
+
     }
 }
